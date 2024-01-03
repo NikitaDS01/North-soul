@@ -22,9 +22,6 @@ public class EditorWorkLadder : Editor
     {
         EditorGUI.BeginChangeCheck();
 
-        EditorGUILayout.LabelField("Work ladder", EditorStyles.boldLabel);
-        EditorGUILayout.Space();
-
         EditorGUILayout.PropertyField(_typeWork);
 
         EditorGUILayout.BeginVertical("box");

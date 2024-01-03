@@ -9,7 +9,7 @@ public class GiveItem : AbstractWork
     {
         if (Input.GetKeyUp(Settings.KeyUse))
         {
-            var player = args.Object.GetComponent<Player>();
+            var player = GameCore.PlayerSingleton;
             var inventory = player.Inventory;
             if (inventory.IsTherePlace())
             {
