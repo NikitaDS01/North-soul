@@ -23,7 +23,10 @@ public class GameCore : MonoBehaviour
 
     public static PanelComponent PanelSingleton => _panelSingleton;
     public static GameObject PlayerObjectSingleton => _playerSingleton;
-    public static CompletedActions CompletedActionSingleton => _completedActionSingleton;
     public static Player PlayerSingleton => _playerSingleton.GetComponent<Player>();
 
+    public static void AddAction(string actionNameIn) =>
+        _completedActionSingleton.Add(actionNameIn);
+    public static bool ContainAction(string actionNameIn) =>
+        _completedActionSingleton.Contain(actionNameIn);
 }
