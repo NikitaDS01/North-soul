@@ -13,18 +13,21 @@ public class PanelComponent : MonoBehaviour
     [Header("Инвентарь")]
     [SerializeField] private GameObject _inventoryViewObject;
     [SerializeField] private Image[] _images;
+    [Header("Меню")]
+    [SerializeField] private GameObject _menu;
     [Header("Остальное")]
     [SerializeField] private Image _blackFon;
-    [SerializeField] private GameObject _menu;
 
     private TextView _textView;
     private InventoryView _inventoryView;
+    private MenuView _menuView;
     private bool _isMenuAction;
 
     private void Start()
     {
         _textView = new TextView(_fonText, _text);
         _inventoryView = new InventoryView(_inventoryViewObject, _images);
+        _menuView = new MenuView(_menu);
         _isMenuAction = false;
         this.MenuOff();
     }
@@ -50,13 +53,13 @@ public class PanelComponent : MonoBehaviour
     public void MenuOn()
     {
         Time.timeScale = 0f;
-        _menu.SetActive(true);
+        _menuView.ViewOn();
         _inventoryView.ViewOn();
     }
     public void MenuOff()
     {
         Time.timeScale = 1f;
-        _menu.SetActive(false);
+        _menuView.ViewOff();
         _inventoryView.ViewOff();
     }
     public IEnumerator TransitionOn(float second, float speed)
