@@ -21,9 +21,6 @@ public class EditorWorkLight : Editor
     {
         EditorGUI.BeginChangeCheck();
 
-        EditorGUILayout.LabelField("Work light", EditorStyles.boldLabel);
-        EditorGUILayout.Space();
-
         EditorGUILayout.PropertyField(_light);
         EditorGUILayout.PropertyField(_workType);
 

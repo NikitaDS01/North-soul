@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class OpenDoor : AbstractWork
+public class OpenDoor : AbstractAction
 {
     [SerializeField]
     private GameObject _doorOpen;

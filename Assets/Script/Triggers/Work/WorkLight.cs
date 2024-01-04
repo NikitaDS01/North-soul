@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 /// <summary>
 /// Данный класс нужен для работы со светом, при нажатие/ подходе игрока.
 /// </summary>
-public class WorkLight : AbstractWork
+public class WorkLight : AbstractAction
 {
     /// <summary>
     /// Как свет должен работать

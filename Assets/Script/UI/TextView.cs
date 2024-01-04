@@ -16,6 +16,19 @@ public class TextView
         this.SetAction(false);
     }
 
+    public IEnumerator PrintText(string textIn)
+    {
+        this.SetAction(true);
+        do
+        {
+            float second = textIn.Length / SPEED_READ;
+            _text.text = textIn;
+            yield return new WaitForSeconds(Mathf.Max(second, _minSecond));
+        } while (false);
+
+        this.SetAction(false);
+    }
+
     public IEnumerator PrintText(TextData dataIn)
     {
         this.SetAction(true);

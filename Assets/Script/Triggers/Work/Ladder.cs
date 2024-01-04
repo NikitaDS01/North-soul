@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ladder : AbstractWork
+public class Ladder : AbstractAction
 {
     private static float _second = 1f;
     private static float _speed = 0.05f;
