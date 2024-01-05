@@ -46,8 +46,4 @@ public class Ladder : AbstractAction
             default: Debug.LogError("Нужно выбрать режим для двери"); break;
         }
     }
-    private void Update()
-    {
-
-    }
 }

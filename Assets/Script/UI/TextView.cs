@@ -29,7 +29,7 @@ public class TextView
         this.SetAction(false);
     }
 
-    public IEnumerator PrintText(TextData dataIn)
+    public IEnumerator PrintText(DialogData dataIn)
     {
         this.SetAction(true);
         var textData = dataIn;

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 /// </summary>
 public class PanelComponent : MonoBehaviour
 {
+    private const float RADUIS_SPHERE = 0.2f;
+
     [Header("Текстовый часть")]
     [SerializeField] private Image _fonText;
     [SerializeField] private Text _text;
@@ -15,24 +17,32 @@ public class PanelComponent : MonoBehaviour
     [SerializeField] private Image[] _images;
     [Header("Меню")]
     [SerializeField] private GameObject _menu;
+    [Header("Камера")]
+    [SerializeField] private Transform _currentCamera;
+    [SerializeField] private float _dumping = 1.5f;
     [Header("Остальное")]
     [SerializeField] private Image _blackFon;
 
-    private TextView _textView;
     private InventoryView _inventoryView;
+    private TextView _textView;
+    private CameraWork _camera;
     private MenuView _menuView;
     private bool _isMenuAction;
+
+    public TextView TextView => _textView;
 
     private void Start()
     {
         _textView = new TextView(_fonText, _text);
         _inventoryView = new InventoryView(_inventoryViewObject, _images);
         _menuView = new MenuView(_menu);
+        _camera = new CameraWork(_currentCamera, _dumping);
         _isMenuAction = false;
         this.MenuOff();
     }
     private void LateUpdate()
     {
+        _camera.Follow(GameCore.PlayerObjectSingleton.transform);
         if (Input.GetKeyUp(Settings.KeyEcs))
         {
             if (_isMenuAction)
@@ -46,9 +56,7 @@ public class PanelComponent : MonoBehaviour
                 _isMenuAction = true;
             }
         }
-    }
-
-    public TextView TextView => _textView;
+    }    
 
     public void MenuOn()
     {
@@ -61,6 +69,10 @@ public class PanelComponent : MonoBehaviour
         Time.timeScale = 1f;
         _menuView.ViewOff();
         _inventoryView.ViewOff();
+    }
+    public void ForcedTPCameraToPlayer()
+    {
+        _camera.ForcedFollow(GameCore.PlayerObjectSingleton.transform);
     }
     public IEnumerator TransitionOn(float second, float speed)
     {
@@ -82,4 +94,5 @@ public class PanelComponent : MonoBehaviour
             yield return new WaitForSeconds(second);
         }
     }
+
 }

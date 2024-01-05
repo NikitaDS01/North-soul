@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// Класс, который является ядром игры
@@ -6,27 +7,40 @@
 [RequireComponent(typeof(PanelComponent))]
 public class GameCore : MonoBehaviour
 {
-    private static PanelComponent _panelSingleton = null!;
-    private static GameObject _playerSingleton = null!;
-    private static CompletedActions _completedActionSingleton = null!;
+    private static PanelComponent _panel = null!;
+    private static GameObject _playerObject = null!;
+    private static CompletedActions _completedAction = null!;
+    private static DialogData[] _dialogDatas;
 
+    [Header("Игрок")]
     [SerializeField] private GameObject _player;
+    [Header("Все диалоги")]
+    [SerializeField] private DialogData[] _dialogsCurrentLevel;
 
-    private void Start()
+    private void Awake()
     {
-        _completedActionSingleton = new CompletedActions();
-        _playerSingleton = _player;
-        _panelSingleton = GetComponent<PanelComponent>();
+        _completedAction = new CompletedActions();
+        _playerObject = _player;
+        _dialogDatas = _dialogsCurrentLevel;
+        _panel = GetComponent<PanelComponent>();
 
         RegistryItem.Registry();
     }
 
-    public static PanelComponent PanelSingleton => _panelSingleton;
-    public static GameObject PlayerObjectSingleton => _playerSingleton;
-    public static Player PlayerSingleton => _playerSingleton.GetComponent<Player>();
+    public static PanelComponent PanelSingleton => _panel;
+    public static GameObject PlayerObjectSingleton => _playerObject;
+    public static Player PlayerSingleton => _playerObject.GetComponent<Player>();
+
+    public void Exit()
+    {
+        Application.Quit();
+        Debug.Log("Выход");
+    }
 
     public static void AddAction(string actionNameIn) =>
-        _completedActionSingleton.Add(actionNameIn);
+        _completedAction.Add(actionNameIn);
     public static bool ContainAction(string actionNameIn) =>
-        _completedActionSingleton.Contain(actionNameIn);
+        _completedAction.Contain(actionNameIn);
+    public static DialogData GetDialog(string dialogNameIn) =>
+        _dialogDatas.FirstOrDefault(dialog => dialog.Name == dialogNameIn);
 }

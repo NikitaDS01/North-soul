@@ -49,6 +49,7 @@
 Класс `ItemData` отвечает за предметы в игре. Наследуется от `ScriptableObject`.
 
 > Инспектор: `int:Id`; `string:Name`; `string:Description`; `Sprite:Icon`;
+
 > Свойства: `int:Index`; `string:Name`; `string:Description`; `Sprite:Icon`;
 
 Статичный класс `RegistryItem`. В нём реализовано хранение всех предметов из папки _Resources/Items_. И из него можно получать предметы с помощью метода `TryGet`.
@@ -66,6 +67,7 @@
 - `Light` - хранит данные света.
 
 > Переменные: `int:Index`; `Vector2:PointLeftUp`; `Vector2:PointRightDown`; `Light2D:Light`;
+
 > Свойства: `float:LeftX`; `float:RightX`; `float:UpY`; `float:DownY`;
 
 Класс `UnityRoom` наследуется от `MonoBehaviour`, который регистрирует комнаты. После метода `Start()` данный компонент уничтожается.
@@ -93,6 +95,7 @@
 Класс `Move` реализует движение и поворот игрока. Статичный метод `GetSpeed` получает скорость из того, что нажал игрок.
 
 > Методы: `void:Run()`;
+
 > Статичные методы: `float:GetSpeed()`;
 
 Класс `Animation` реализует анимацию игрока. Просто отслеживает параметры и меняет состояние.
@@ -102,6 +105,7 @@
 Класс `Inventory` реализует инвентарь любой сущности (возможно только для игрока). Имеет интерфейс `IEnumerable`. Инвентарь имеет максимальное количество слотов. С помощью методов можно добавлять `Add()`, удалять `Remove()`, узнать, есть ли свободные места `IsTherePlace()` и есть ли предмет `Contain()`.
 
 > Свойства: `IReadOnlyList<ItemData>:Items`; `int:Count`; `int:MaxCount`;
+
 > Методы: `void:Add(ItemData)`; `void:Remove(ItemData)`; `bool:IsTherePlace()`; `bool:Contain(ItemData)`;
 
 ---
@@ -116,6 +120,7 @@
   Есть такие же свойства. К ним добавляется свойство `IsEnd`, возращающий `true`, если нет следующего объекта текста.
 
 > Инспектор гаджет: `string:Name`; `TextData:Next Text`; `string:Text`;
+
 > Свойства: `string:Name`; `TextData:NextText`; `string:Text`; `bool:IsEnd`;
 
 Класс `CompletedActions` является хранилищем для выполненых действий. К примеру - игрок выполнил действие _Испугаться призрака_. Оно записывается в данное хранилище.
@@ -144,7 +149,8 @@
   - `Name Action` - событие, которое требуется.
   - `On Not Work Trigger` - события, которые сработают, если триггер не сработает. Требуется условие.
 
-> Инспектор: `bool:Is Button`; `bool:Is Loop`; `string:Tag`; `TypeCriterion:Type Criterion`; `UnityEvent<GameEventArgs>:On Work Trigger`; `UnityEvent<GameEventArgs>:On Not Work Trigger`; `string:Name Action`; `ItemData:Item`;  
+> Инспектор: `bool:Is Button`; `bool:Is Loop`; `string:Tag`; `TypeCriterion:Type Criterion`; `UnityEvent<GameEventArgs>:On Work Trigger`; `UnityEvent<GameEventArgs>:On Not Work Trigger`; `string:Name Action`; `ItemData:Item`;
+
 > Свойства: `bool:IsEmptyObject`; `GameObject:Gameobject`;
 
 ---
@@ -180,6 +186,7 @@
 Класса `GiveItem` реализует события получения предмета. Если в карманах нет места, то ничего мы не получаем. На вход назначаем предмет и указываем, нужен ли вывод текста об этом.
 
 > Инспектор: `ItemData:Item`; `bool:Is Show Text`;
+
 > Методы: `void:Run(GameEventArgs)`;
 
 Класса `Ladder` реализует перемещение между этажами. На вход получает или объект _(Target Object)_, или позицию _(Target Position)_, куда нужно переместиться.
@@ -190,6 +197,7 @@
 Класса `OpenDoor` реализует открытие двери. На вход назначаем открытую и закрытую дверь.
 
 > Инспектор: `GameObject:Door Open`; `GameObject:Door Close`; `bool:Is Open Door`;
+
 > Методы: `void:Run(GameEventArgs)`;
 
 Класса `WorkCompletedAction` реализует то, что какое-то событие произошло. На вход назначаем название событию.
@@ -200,11 +208,13 @@
 Класса `WorkLight` реализует работу со светом. На вход назначаем свет и тип работы света. Есть стандартный режим _(Standart)_ и режим по таймеру _(DuringTime)_. По таймеру дополнительно нужно указать период.
 
 > Инспектор: `WorkTypeLight:Work Type Light`; `Light2D:Light`; `float:Period`;
+
 > Методы: `void:Run(GameEventArgs)`;
 
 Класса `WorkText` показывает текст. На вход получает `TextData` в первой ячейки. ~~Пока что тут такой костыль, что п\*здец.~~ С помощью метода `RunText()` можно вызвать конкретный _диалог_ через названия. Обязательно он должен быть в `Datas`.
 
 > Инспектор: `List<TextData>:Datas`;
+
 > Методы: `void:Run(GameEventArgs)`; `void:RunText(nameDatasData)`;
 
 ---
@@ -226,7 +236,9 @@
 Данный класс является главным ядром игры. Он контролирует запуск важных объектов. Через него можно получить `Player`, `PanelComponent` и `CompletedActions`.
 
 > Инспектор: `GameObject:Player`
+
 > Статичные свойства:`PanelComponent:PanelSingleton`; `GameObject:PlayerObjectSingleton`; `Player:PlayerSingleton`;
+
 > Статичные методы:`void:AddAction(string)`; `bool:ContainAction(string)`;
 
 ---
@@ -244,6 +256,7 @@
 Данный класс просто хранит все Event, по типу _Смерти игрока_ или _Открытие меню_. ~~Я ещё не использовал~~
 
 > Статичные переменные:`Action:OnDeadPlayer`; `Action:OnEnableMenu`;
+
 > Статичные методы:`void:InvokeEnableMenu()`; `void:InvokeDeadPlayer()`;
 
 ---
@@ -255,7 +268,9 @@
 Данный объект отвечает за интерфейс игры. Он контролирует запуск важных UI объектов, а конкретно `InventoryView`, `TextView` `MenuView`. Отвечает за меню игры.
 
 > Инспектор: `Image:Fon Text`; `Text:Text`; `GameObject:Inventory View Object`; `Image[]:Images`; `GameObject:Menu`; `Image:Black Fon`;
+
 > Свойства: `TextView:TextView`;
+
 > Методы: `void:MenuOn()`; `void:MenuOff()`; `IEnumerator:TransitionOn(float, float)`; `IEnumerator:TransitionOff(float, float)`;
 
 ---
