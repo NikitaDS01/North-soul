@@ -10,8 +10,8 @@ public class GiveItem : AbstractAction
     {
         if (Input.GetKeyUp(Settings.KeyUse))
         {
-            var textView = GameCore.PanelSingleton.TextView;
-            var player = GameCore.PlayerSingleton;
+            var textView = GameController.Panel.TextView;
+            var player = GameController.Player;
             var inventory = player.Inventory;
             string text = string.Empty;
             if (inventory.IsTherePlace())

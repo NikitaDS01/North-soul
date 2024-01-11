@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        _player = GameCore.PlayerSingleton.transform;
+        _player = GameController.Player.transform;
         _transform = transform;
     }
     private void Update()
@@ -19,24 +19,7 @@ public class EnemyAI : MonoBehaviour
     }
     private void LateUpdate()
     {
-        Room? room = RegistryRoom.Find(_transform.position);
-        if(room != null)
-        {
-            // ≈сли сделать !room.Value.Light.enabled, то враг будет при свете по€вл€етс€
-            if (room.Value.Light.enabled)
-            {
-                Hide();
-            }
-            else
-            {
-                Show();
-            }
-            
-        }
-        else
-        {
-            Hide();
-        }
+        
     }
     private void Hide()
     {

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class MenuView
+[System.Serializable]
+public class MenuButtonView : IService
 {
-    private GameObject _menuObject;
+    [SerializeField] private GameObject _menuObject;
 
-    public MenuView(GameObject menuObjectIn)
+    public MenuButtonView(GameObject menuObjectIn)
     {
         _menuObject = menuObjectIn;
     }

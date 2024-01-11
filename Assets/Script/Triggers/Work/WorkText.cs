@@ -11,16 +11,16 @@ public class WorkText : AbstractAction
         if (_data == null)
             throw new System.Exception("ƒанного текста нет в списке или не существует.");
 
-        var view = GameCore.PanelSingleton.TextView;
+        var view = GameController.Panel.TextView;
         StartCoroutine(view.PrintText(_data));
     }
     public void RunOtherText(string nameDatasDataIn)
     {
-        var _data = GameCore.GetDialog(nameDatasDataIn);
+        var _data = GameController.TryGetDialog(nameDatasDataIn);
         if (_data == null)
             throw new System.Exception("ƒанного текста нет в списке или не существует.");
 
-        var view = GameCore.PanelSingleton.TextView;
+        var view = GameController.Panel.TextView;
         StartCoroutine(view.PrintText(_data));
     }
 }

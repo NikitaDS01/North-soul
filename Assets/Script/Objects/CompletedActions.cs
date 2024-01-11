@@ -3,7 +3,7 @@
 /// <summary>
 /// Класс, нужен для хранения выполненых действий
 /// </summary>
-public class CompletedActions
+public class CompletedActions : IService
 {
     private List<string> _completedActionData;
 

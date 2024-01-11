@@ -1,9 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class Ladder : AbstractAction
 {
-    private static float _second = 1f;
-    private static float _speed = 0.05f;
+    private static float _speedBlackFon = 0.8f;
     public enum TypeWork
     {
         None = -1,
@@ -19,8 +19,9 @@ public class Ladder : AbstractAction
     public override void Run(GameEventArgs args)
     {
         var player = args.Object;
-        StartCoroutine(GameCore.PanelSingleton.TransitionOn(_second, _speed));
-
+        StartCoroutine(GameController.Panel.ActineBlackFon(_speedBlackFon));
+        StartCoroutine(GameController.Panel.CorutinaCameraToPlayer(_speedBlackFon + 1f));
+        StartCoroutine(GameController.DeactivatePlayer(_speedBlackFon * 2 + 1f));
         switch (_typeWork)
         {
             case TypeWork.OnObject: 
@@ -30,8 +31,7 @@ public class Ladder : AbstractAction
                 player.transform.position = _targetPosition; break;
             default: Debug.LogError("Нужно выбрать режим для двери"); break;
         }
-
-        StartCoroutine(GameCore.PanelSingleton.TransitionOff(_second, _speed));
+        
     }
     public void OnDrawGizmosSelected()
     {

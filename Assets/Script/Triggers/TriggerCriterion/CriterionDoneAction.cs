@@ -9,6 +9,6 @@
 
     public bool Check()
     {
-        return GameCore.ContainAction(_nameAction);
+        return GameController.ContainAction(_nameAction);
     }
 }

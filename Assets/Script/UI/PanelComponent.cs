@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Данный класс хранит все элементы Canvas, которые необходимо менять
 /// </summary>
-public class PanelComponent : MonoBehaviour
+public class PanelComponent : MonoBehaviour, IService
 {
     private const float RADUIS_SPHERE = 0.2f;
 
@@ -19,14 +19,16 @@ public class PanelComponent : MonoBehaviour
     [SerializeField] private GameObject _menu;
     [Header("Камера")]
     [SerializeField] private Transform _currentCamera;
+    [SerializeField] private Vector2 _offset;
     [SerializeField] private float _dumping = 1.5f;
     [Header("Остальное")]
     [SerializeField] private Image _blackFon;
 
     private InventoryView _inventoryView;
+    private BlackoutView _blackout;
     private TextView _textView;
     private CameraWork _camera;
-    private MenuView _menuView;
+    private MenuButtonView _menuView;
     private bool _isMenuAction;
 
     public TextView TextView => _textView;
@@ -35,15 +37,17 @@ public class PanelComponent : MonoBehaviour
     {
         _textView = new TextView(_fonText, _text);
         _inventoryView = new InventoryView(_inventoryViewObject, _images);
-        _menuView = new MenuView(_menu);
-        _camera = new CameraWork(_currentCamera, _dumping);
+        _camera = new CameraWork(_currentCamera, _dumping, _offset);
+        _blackout = new BlackoutView(_blackFon);
+        _menuView = new MenuButtonView(_menu);
         _isMenuAction = false;
         this.MenuOff();
     }
     private void LateUpdate()
     {
-        _camera.Follow(GameCore.PlayerObjectSingleton.transform);
-        if (Input.GetKeyUp(Settings.KeyEcs))
+        if(GameController.Player.IsActive)
+            _camera.Follow(GameController.PlayerObject.transform);
+        if (Input.GetKeyUp(Settings.KeyEcs) && GameController.IsActiveGame)
         {
             if (_isMenuAction)
             {
@@ -60,39 +64,14 @@ public class PanelComponent : MonoBehaviour
 
     public void MenuOn()
     {
-        Time.timeScale = 0f;
+        GameController.ChangeActiveGame(false);
         _menuView.ViewOn();
         _inventoryView.ViewOn();
     }
     public void MenuOff()
     {
-        Time.timeScale = 1f;
+        GameController.ChangeActiveGame(true);
         _menuView.ViewOff();
         _inventoryView.ViewOff();
     }
-    public void ForcedTPCameraToPlayer()
-    {
-        _camera.ForcedFollow(GameCore.PlayerObjectSingleton.transform);
-    }
-    public IEnumerator TransitionOn(float second, float speed)
-    {
-        while(_blackFon.color.a != 1)
-        {
-            var color = _blackFon.color;
-            color.a += speed;
-            _blackFon.color = color;
-            yield return new WaitForSeconds(second);
-        }
-    }
-    public IEnumerator TransitionOff(float second, float speed)
-    {
-        while (_blackFon.color.a != 0)
-        {
-            var color = _blackFon.color;
-            color.a -= speed;
-            _blackFon.color = color;
-            yield return new WaitForSeconds(second);
-        }
-    }
-
 }

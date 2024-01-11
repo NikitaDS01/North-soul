@@ -13,7 +13,7 @@ public class CriterionPresentItem : ITriggerCriterion
     public CriterionPresentItem(ItemData dataIn)
     {
         _data = dataIn;
-        _player = GameCore.PlayerSingleton;
+        _player = GameController.Player;
     }
 
     public bool Check()

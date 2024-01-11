@@ -2,13 +2,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextView
+[System.Serializable]
+public class TextView : IService
 {
     private const float SPEED_READ = 8f;
     private static float _minSecond = 3f;
 
-    private Image _fonText;
-    private Text _text;
+    [SerializeField] private Image _fonText;
+    [SerializeField] private Text _text;
     public TextView(Image fonText, Text text)
     {
         _fonText = fonText;

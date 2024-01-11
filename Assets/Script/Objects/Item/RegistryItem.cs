@@ -2,11 +2,16 @@
 using System.Linq;
 using UnityEngine;
 
-public static class RegistryItem
+public class RegistryItem : IService
 {
-    private static Dictionary<int, ItemData> _items = new Dictionary<int, ItemData>();
+    private Dictionary<int, ItemData> _items;
 
-    public static void Registry()
+    public RegistryItem()
+    {
+        _items = new Dictionary<int, ItemData>();
+    }
+
+    public void LoadFromFile()
     {
         var objects = Resources.LoadAll("Items");
         foreach(var obj in objects)
@@ -15,7 +20,7 @@ public static class RegistryItem
             _items.Add(item.Index, item);
         }
     }
-    public static ItemData TryGet(int index)
+    public ItemData TryGet(int index)
     {
         if(_items.ContainsKey(index))
             return _items[index];

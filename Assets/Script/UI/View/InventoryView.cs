@@ -3,10 +3,12 @@ using UnityEngine.UI;
 /// <summary>
 /// Класс, для вывода инвентаря
 /// </summary>
-public class InventoryView
+
+[System.Serializable]
+public class InventoryView : IService
 {
-    private GameObject _inventoryViewObject;
-    private Image[] _images;
+    [SerializeField] private GameObject _inventoryViewObject;
+    [SerializeField] private Image[] _images;
 
     public InventoryView(GameObject inventoryObject, Image[] images)
     {
@@ -16,7 +18,7 @@ public class InventoryView
 
     public void ViewOn()
     {
-        var inventory = GameCore.PlayerSingleton.Inventory;
+        var inventory = GameController.Player.Inventory;
         _inventoryViewObject.SetActive(true);
         for(int index = 0; index < inventory.Count; index++)
         {
