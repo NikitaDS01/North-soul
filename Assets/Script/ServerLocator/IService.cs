@@ -1,2 +1,5 @@
-﻿public interface IService { }
+﻿public interface IService
+{
+    void Init();
+}
 

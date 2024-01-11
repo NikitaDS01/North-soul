@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 public class AudioController : IService
 {
-
+    public void Init()
+    {
+        return;
+    }
 }

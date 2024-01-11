@@ -3,18 +3,40 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class TextView : IService
+public class TextView : IService, IContainEvent
 {
     private const float SPEED_READ = 8f;
     private static float _minSecond = 3f;
 
     [SerializeField] private Image _fonText;
     [SerializeField] private Text _text;
+    
+    private CoritunaService _coritunaService;
+    private EventBus _eventBus;
+    
     public TextView(Image fonText, Text text)
     {
         _fonText = fonText;
         _text = text;
         this.SetAction(false);
+    }
+
+    public void DisableEvent()
+    {
+        _eventBus.Unsubcribe<AddItemInventorySignal>(PrintAddItem);
+    }
+
+    public void EnableEvent()
+    {
+        _eventBus.Subscribe<AddItemInventorySignal>(PrintAddItem);
+    }
+
+    public void Init()
+    {
+        _coritunaService = ServiceLocator.Singleton.Get<CoritunaService>();
+
+        _eventBus = ServiceLocator.Singleton.Get<EventBus>();
+        EnableEvent();
     }
 
     public IEnumerator PrintText(string textIn)
@@ -29,7 +51,6 @@ public class TextView : IService
 
         this.SetAction(false);
     }
-
     public IEnumerator PrintText(DialogData dataIn)
     {
         this.SetAction(true);
@@ -48,5 +69,15 @@ public class TextView : IService
     {
         _fonText.enabled = isActionIn;
         _text.enabled = isActionIn;
+    }
+    private void PrintAddItem(AddItemInventorySignal signal)
+    {
+        var text = $"Вы нашли предмет - {signal.Item.Name}";
+        _coritunaService.StartCoroutine(PrintText(text));
+    }
+    private void PrintNotAddItem(NotPlaceInventorySignal signal)
+    {
+        var text = $"Ваш инвентарь заполнен";
+        _coritunaService.StartCoroutine(PrintText(text));
     }
 }

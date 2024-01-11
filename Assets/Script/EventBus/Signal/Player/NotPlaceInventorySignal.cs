@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
 
-public struct GameEventArgs
+public class NotPlaceInventorySignal
 {
-    public GameObject Object { get; set; }
+    public NotPlaceInventorySignal() { }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class OpenDoor : AbstractAction
+public class OpenDoor : Trigger
 {
     [SerializeField]
     private GameObject _doorOpen;
@@ -13,15 +13,12 @@ public class OpenDoor : AbstractAction
     {
         ChangeDoor();
     }
-
-    public override void Run(GameEventArgs args)
+    protected override void Work()
     {
-        if (Input.GetKeyUp(Settings.KeyUse))
-        {
-            _isOpenDoor = !_isOpenDoor;
-            ChangeDoor();
-        }
+        _isOpenDoor = !_isOpenDoor;
+        ChangeDoor();
     }
+
     private void ChangeDoor()
     {
         if (_isOpenDoor)
@@ -38,9 +35,5 @@ public class OpenDoor : AbstractAction
     {
         _doorClose.SetActive(true);
         _doorOpen.SetActive(false);
-    }
-    private void Update()
-    {
-
     }
 }

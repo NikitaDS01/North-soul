@@ -1,7 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour, IService
+public class Player : MonoBehaviour, IService, IContainEvent
 {
     [Header("Скорость")]
     [SerializeField, Min(0)] private float _speed;
@@ -11,40 +12,31 @@ public class Player : MonoBehaviour, IService
     [Header("Инвентарь")]
     [SerializeField] private int _countItem = 6;
 
+    private EventBus _eventBus;
     private Transform _transform;
     private Rigidbody2D _rigidbody;
     private Inventory _inventory;
     private EyesPlayer _eyes;
     private Animation _animation;
     private Move _move;
-    private bool _isActive;
-    private bool _isShow;
+    private bool _canMove = true;
+    private bool _isShow = true;
 
-    private void Start()
+    public void Init()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _transform = GetComponent<Transform>();
-
-        _isActive = true;
-        _isShow = true;
         _animation = new Animation(_animator);
         _move = new Move(_rigidbody, transform);
         _inventory = new Inventory(_countItem);
         _eyes = new EyesPlayer();
+
+        _eventBus = ServiceLocator.Singleton.Get<EventBus>();
+        EnableEvent();
     }
     public Inventory Inventory => _inventory;
-    public bool IsActive => _isActive;
+    public bool IsActive => _canMove;
     public bool IsShow => _isShow;
-    public void SetActive(bool isActive)
-    {
-        _rigidbody.velocity = Vector2.zero;
-        _isActive = isActive;
-    }
-    public void SetShow(bool showIn)
-    {
-        _isShow = showIn;
-        _spriteRenderer.enabled = showIn;
-    }
 
     private void Update()
     {
@@ -52,11 +44,29 @@ public class Player : MonoBehaviour, IService
     }
     private void FixedUpdate()
     {
-        if (_isActive)
-            _move.Run(_speed);
+        if (!_canMove)
+            return;
+
+        _move.Run(_speed);
     }
     private void LateUpdate()
     {
 
+    }
+    private void OnDestroy()
+    {
+        DisableEvent();
+    }
+    private void AddItem(AddItemInventorySignal signalIn)
+    {
+        _inventory.Add(signalIn.Item);
+    }
+    public void EnableEvent()
+    {
+        _eventBus.Subscribe<AddItemInventorySignal>(AddItem);
+    }
+    public void DisableEvent()
+    {
+        _eventBus.Unsubcribe<AddItemInventorySignal>(AddItem);
     }
 }

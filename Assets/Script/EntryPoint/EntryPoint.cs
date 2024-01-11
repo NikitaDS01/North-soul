@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-[RequireComponent(typeof(PanelComponent))]
 public class EntryPoint : MonoBehaviour
 {
+    [SerializeField] private CoritunaService _coritunaService;
     [SerializeField] private GameController _gameCore;
     [SerializeField] private Player _player;
     [Header("UI - элементы")]
@@ -36,6 +36,7 @@ public class EntryPoint : MonoBehaviour
         ServiceLocator.Singleton.Register(_registryItem);
         ServiceLocator.Singleton.Register(_completedaAtions);
         ServiceLocator.Singleton.Register(_gameCore);
+        ServiceLocator.Singleton.Register(_coritunaService);
         ServiceLocator.Singleton.Register(_player);
         ServiceLocator.Singleton.Register(_inventoryView);
         ServiceLocator.Singleton.Register(_settingView);

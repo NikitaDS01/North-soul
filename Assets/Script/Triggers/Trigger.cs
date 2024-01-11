@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
-public class Trigger : MonoBehaviour
+public abstract class Trigger : MonoBehaviour
 {
     public enum TypeCriterion
     {
@@ -18,30 +17,30 @@ public class Trigger : MonoBehaviour
     [SerializeField] private TypeCriterion _typeCriterion = TypeCriterion.None;
     [SerializeField] private string _nameAction;
     [SerializeField] private ItemData _item;
-    [SerializeField] private UnityEvent<GameEventArgs> _onNotWorkTrigger;
-    [Header("События при срабатывание")]
-    [SerializeField] private UnityEvent<GameEventArgs> _onWorkTrigger; 
 
+    private ITriggerCriterion _triggerCriterion;
+    protected EventBus eventBus;
     private Collider2D _collider;
     private GameObject _object;
-    private ITriggerCriterion _triggerCriterion;
 
-    public bool IsEmptyObject => _object == null;
-    public GameObject Gameobject => _object;
+    protected bool IsEmptyObject => _object == null;
+    protected GameObject Gameobject => _object;
 
     private void Start()
     {
         _object = null;
         _collider = GetComponent<Collider2D>();
+        eventBus = ServiceLocator.Singleton.Get<EventBus>();
         switch (_typeCriterion)
         {
-            case TypeCriterion.None: 
+            case TypeCriterion.None:
                 _triggerCriterion = new CritetionNone(); break;
-            case TypeCriterion.PresentItem: 
+            case TypeCriterion.PresentItem:
                 _triggerCriterion = new CriterionPresentItem(_item); break;
-            case TypeCriterion.DoneAction: 
+            case TypeCriterion.DoneAction:
                 _triggerCriterion = new CriterionDoneAction(_nameAction); break;
         }
+        InputData();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -55,24 +54,49 @@ public class Trigger : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (!IsEmptyObject)
-        {
-            if (_isButton)
-                if (!Input.GetKeyUp(Settings.KeyUse))
-                    return;
+        if (IsEmptyObject)
+            return;
 
-            var args = new GameEventArgs { Object = _object };
-            if (_triggerCriterion.Check())
-            {
-                _onWorkTrigger?.Invoke(args);
-                if (!_isLoop)
-                    Destroy(this);
-            }
-            else
-            {
-                _onNotWorkTrigger?.Invoke(args);
-            }
+        if (_isButton)
+            if (!Input.GetKeyUp(Settings.KeyUse))
+                return;
+
+        if (_triggerCriterion.Check() && Condition())
+        {
+            Work();
+            if (!_isLoop)
+                Destroy(this);
         }
+        else
+        {
+            NotWork();
+        }
+    }
+    /// <summary>
+    /// Действие триггера, если сработали условия
+    /// </summary>
+    protected abstract void Work();
+    /// <summary>
+    /// Метод для ввода других данных
+    /// </summary>
+    protected virtual void InputData()
+    {
+        return;
+    }
+    /// <summary>
+    /// Условие для триггера
+    /// </summary>
+    /// <returns>Выполнилось ли условие</returns>
+    protected virtual bool Condition()
+    {
+        return true;
+    }
+    /// <summary>
+    /// Действия триггера, если не сработали условия.
+    /// </summary>
+    protected virtual void NotWork()
+    {
+        return;
     }
     public void OnDrawGizmos()
     {

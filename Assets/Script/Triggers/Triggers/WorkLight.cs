@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 /// <summary>
 /// Данный класс нужен для работы со светом, при нажатие/ подходе игрока.
 /// </summary>
-public class WorkLight : AbstractAction
+public class WorkLight : Trigger
 {
     /// <summary>
     /// Как свет должен работать
@@ -31,13 +31,8 @@ public class WorkLight : AbstractAction
             default: Debug.LogError("Нужно выбрать режим для лампы"); break;
         }
     }
-
-    public override void Run(GameEventArgs args)
+    protected override void Work()
     {
         _lightWork.Work(_light);
-    }
-    private void Update()
-    {
-        
     }
 }

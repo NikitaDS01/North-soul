@@ -11,7 +11,12 @@ public class GameController : MonoBehaviour, IService
 {
     private EventBus _eventBus;
 
+    public void Init()
+    {
+        return;
+    }
 
+    
     //public static void ChangeActiveGame(bool activeIn)
     //{
     //    GameController.Singleton._isActiveGame = activeIn;
