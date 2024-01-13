@@ -1,27 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class Trigger : MonoBehaviour
+public class Trigger : MonoBehaviour
 {
-    public enum TypeCriterion
-    {
-        None = -1,
-        PresentItem = 1,
-        DoneAction = 2
-    }
     [Header("Настройки")]
     [SerializeField] private bool _isButton = false;
     [SerializeField] private bool _isLoop = false;
     [SerializeField] private string _tag = "Player";
-    [Header("Условия")]
-    [SerializeField] private TypeCriterion _typeCriterion = TypeCriterion.None;
-    [SerializeField] private string _nameAction;
-    [SerializeField] private ItemData _item;
 
-    private ITriggerCriterion _triggerCriterion;
-    protected EventBus eventBus;
+    private List<IInteractable> _workTrigger;
+    private List<INotInteractable> _notWorkTrigger;
+    private List<IConditionInteractable> _conditionTrigger;
     private Collider2D _collider;
     private GameObject _object;
+    private EventBus _eventBus;
 
     protected bool IsEmptyObject => _object == null;
     protected GameObject Gameobject => _object;
@@ -30,17 +24,16 @@ public abstract class Trigger : MonoBehaviour
     {
         _object = null;
         _collider = GetComponent<Collider2D>();
-        eventBus = ServiceLocator.Singleton.Get<EventBus>();
-        switch (_typeCriterion)
-        {
-            case TypeCriterion.None:
-                _triggerCriterion = new CritetionNone(); break;
-            case TypeCriterion.PresentItem:
-                _triggerCriterion = new CriterionPresentItem(_item); break;
-            case TypeCriterion.DoneAction:
-                _triggerCriterion = new CriterionDoneAction(_nameAction); break;
-        }
-        InputData();
+        _eventBus = ServiceLocator.Singleton.Get<EventBus>();
+
+        _workTrigger = new List<IInteractable>();
+        _notWorkTrigger = new List<INotInteractable>();
+        _conditionTrigger = new List<IConditionInteractable>();
+
+        this.GetComponents(_workTrigger);
+        this.GetComponents(_notWorkTrigger);
+        this.GetComponents(_conditionTrigger);
+        Debug.Log($"{_workTrigger.Count} {_notWorkTrigger.Count} {_conditionTrigger.Count}");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,7 +54,7 @@ public abstract class Trigger : MonoBehaviour
             if (!Input.GetKeyUp(Settings.KeyUse))
                 return;
 
-        if (_triggerCriterion.Check() && Condition())
+        if (Condition())
         {
             Work();
             if (!_isLoop)
@@ -72,31 +65,28 @@ public abstract class Trigger : MonoBehaviour
             NotWork();
         }
     }
-    /// <summary>
-    /// Действие триггера, если сработали условия
-    /// </summary>
-    protected abstract void Work();
-    /// <summary>
-    /// Метод для ввода других данных
-    /// </summary>
-    protected virtual void InputData()
+    private bool Condition()
     {
-        return;
-    }
-    /// <summary>
-    /// Условие для триггера
-    /// </summary>
-    /// <returns>Выполнилось ли условие</returns>
-    protected virtual bool Condition()
-    {
+        foreach(var condition in _conditionTrigger)
+        {
+            if(!condition.Check()) 
+                return false;
+        }
         return true;
     }
-    /// <summary>
-    /// Действия триггера, если не сработали условия.
-    /// </summary>
-    protected virtual void NotWork()
+    private void Work()
     {
-        return;
+        foreach(var item in _workTrigger)
+        {
+            item.Work(_eventBus);
+        }
+    }
+    private void NotWork()
+    {
+        foreach (var item in _notWorkTrigger)
+        {
+            item.NotWork(_eventBus);
+        }
     }
     public void OnDrawGizmos()
     {

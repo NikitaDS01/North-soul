@@ -29,18 +29,16 @@ public class ServiceLocator
     public void Register<T>(T service) where T : IService
     {
         var type = typeof(T);
-        if (!this.ContainType<T>())
-            _services.Add(type, service);
-
-        Debug.LogError($"Ключ {type.Name} существует");
+        if (this.ContainType<T>())
+            Debug.LogError($"Ключ {type.Name} существует");
+        _services.Add(type, service);
     }
     public void Unregister<T>() where T : IService
     {
         var type = typeof(T);
-        if (this.ContainType<T>())
-            _services.Remove(type);
-
-        Debug.LogError($"Ключ {type.Name} не существует");
+        if (!this.ContainType<T>())
+            Debug.LogError($"Ключ {type.Name} не существует");
+        _services.Remove(type);        
     }
     public bool ContainType<T>()
     {

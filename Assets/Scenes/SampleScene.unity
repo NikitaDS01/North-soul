@@ -568,8 +568,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00454998, y: -0.004300028, z: 0}
-    m_Extent: {x: 1.00245, y: 1.0024, z: 0}
+    m_Center: {x: -0.001150012, y: -0.0013499856, z: 0}
+    m_Extent: {x: 1.00775, y: 1.0055499, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -608,8 +608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 214032440}
-  - component: {fileID: 214032439}
-  - component: {fileID: 214032441}
+  - component: {fileID: 214032442}
   m_Layer: 0
   m_Name: GameCore
   m_TagString: Untagged
@@ -617,25 +616,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &214032439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214032438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e28d38796e157584cb60380141a768c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _light: {fileID: 1523106358}
-  _maxLight: 26
-  _minLight: 0
-  _player: {fileID: 1758214902}
-  _dialogsCurrentLevel:
-  - {fileID: 11400000, guid: e8ae3f60f74f7554d967714e3ae5a547, type: 2}
-  - {fileID: 11400000, guid: 36bfba872ac20184c855976512fe82d1, type: 2}
 --- !u!4 &214032440
 Transform:
   m_ObjectHideFlags: 0
@@ -651,7 +631,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &214032441
+--- !u!114 &214032442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -660,24 +640,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 214032438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091b5d5e5d8b105438e4af4e2a4a88e1, type: 3}
+  m_Script: {fileID: 11500000, guid: ec5634a6ebfef6e47a841ada25ddfdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fonText: {fileID: 830715488}
-  _text: {fileID: 936710646}
-  _inventoryViewObject: {fileID: 376654052}
-  _images:
-  - {fileID: 1716920424}
-  - {fileID: 269284181}
-  - {fileID: 814566076}
-  - {fileID: 1925565826}
-  - {fileID: 1734899422}
-  - {fileID: 1998617028}
-  _menu: {fileID: 2133053111}
-  _currentCamera: {fileID: 519420032}
-  _offset: {x: 0, y: 1.7}
-  _dumping: 1.5
-  _blackFon: {fileID: 977194456}
+  _globalLight:
+    _light: {fileID: 1523106358}
+    _brightColor: {r: 0.039215688, g: 0.039215688, b: 0.039215688, a: 0}
+  _player: {fileID: 1758214907}
+  _blackoutView:
+    _blackFon: {fileID: 977194456}
+  _inventoryView:
+    _inventoryViewObject: {fileID: 376654052}
+    _images:
+    - {fileID: 1716920424}
+    - {fileID: 269284181}
+    - {fileID: 814566076}
+    - {fileID: 1925565826}
+    - {fileID: 1734899422}
+    - {fileID: 1998617028}
+  _menuView:
+    _menuObject: {fileID: 2133053111}
+    _playButton: {fileID: 1183198009}
+    _settingButton: {fileID: 637064895}
+    _ExitButton: {fileID: 1531898998}
+  _textView:
+    _fonText: {fileID: 830715488}
+    _text: {fileID: 936710646}
+  _camera:
+    _camera: {fileID: 519420032}
+    _dumping: 0.8
+    _offset: {x: 0, y: 0}
 --- !u!1 &224503430
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,12 +759,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 224503430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c69f64fe4e6933b4aa7a1bed79c4db71, type: 3}
+  m_Script: {fileID: 11500000, guid: f4a8b78e245ec8d4fb8f84dc609b522e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workTypeLight: 1
   _light: {fileID: 1874715534}
-  _period: 0
 --- !u!114 &224503435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,27 +778,6 @@ MonoBehaviour:
   _isButton: 1
   _isLoop: 1
   _tag: Player
-  _typeCriterion: -1
-  _nameAction: 
-  _item: {fileID: 0}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 224503434}
-        m_TargetAssemblyTypeName: WorkLight, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &269284179
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +863,6 @@ GameObject:
   m_Component:
   - component: {fileID: 297361469}
   - component: {fileID: 297361470}
-  - component: {fileID: 297361471}
   m_Layer: 0
   m_Name: ROOMPd
   m_TagString: Untagged
@@ -969,21 +937,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &297361471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297361468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0291c7f705b674f4e88ef2fd9adb8711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointLeftUp: {x: -32.9, y: -15.08}
-  _pointRightDown: {x: -17.6, y: -22.47}
-  _light: {fileID: 2020100915}
 --- !u!1 &297776450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,7 +1213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &376654053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1712,7 +1665,6 @@ GameObject:
   m_Component:
   - component: {fileID: 436569190}
   - component: {fileID: 436569191}
-  - component: {fileID: 436569192}
   m_Layer: 0
   m_Name: ROOMTest
   m_TagString: Untagged
@@ -1787,21 +1739,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &436569192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436569189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0291c7f705b674f4e88ef2fd9adb8711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointLeftUp: {x: -7.51, y: 4.2}
-  _pointRightDown: {x: 8.12, y: -3.16}
-  _light: {fileID: 1440865654}
 --- !u!1 &498280274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,8 +1749,6 @@ GameObject:
   m_Component:
   - component: {fileID: 498280275}
   - component: {fileID: 498280278}
-  - component: {fileID: 498280277}
-  - component: {fileID: 498280276}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -1836,58 +1771,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 133004542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &498280276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498280274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c6638683baa7143ab17aae107bd0c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isButton: 1
-  _isLoop: 1
-  _tag: Player
-  _typeCriterion: -1
-  _nameAction: 
-  _item: {fileID: 0}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 498280277}
-        m_TargetAssemblyTypeName: Ladder, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &498280277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498280274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069fc5bc7a23c594abdba6341762618d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _typeWork: 2
-  _targetPosition: {x: -28.94, y: -0.7}
-  _offset: {x: 0, y: 0}
-  _targetObject: {fileID: 1673961269}
 --- !u!61 &498280278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2020,11 +1903,11 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.25, y: 0.67810893, z: -10}
+  m_LocalPosition: {x: 0, y: 1.22, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1758214903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -2158,33 +2041,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 529220353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c6638683baa7143ab17aae107bd0c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ea0f4e0cdad04747aad9dccc348b016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isButton: 1
-  _isLoop: 1
-  _tag: Player
-  _typeCriterion: -1
-  _nameAction: 
-  _item: {fileID: 0}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 529220358}
-        m_TargetAssemblyTypeName: Ladder, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _offset: {x: 0, y: -0.55}
+  _targetTransform: {fileID: 1673961270}
 --- !u!114 &529220358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2194,13 +2055,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 529220353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069fc5bc7a23c594abdba6341762618d, type: 3}
+  m_Script: {fileID: 11500000, guid: 59c6638683baa7143ab17aae107bd0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _typeWork: 2
-  _targetPosition: {x: -28.94, y: -0.7}
-  _offset: {x: 0, y: 0}
-  _targetObject: {fileID: 1673961269}
+  _isButton: 1
+  _isLoop: 1
+  _tag: Player
 --- !u!1 &567130864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,6 +2220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 595137977}
   - component: {fileID: 595137978}
+  - component: {fileID: 595137979}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -2416,8 +2277,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.00024998188, y: 0.0015500188, z: 0}
-    m_Extent: {x: 0.79925, y: 0.79665, z: 0}
+    m_Center: {x: 0.00025001168, y: -0.0027500093, z: 0}
+    m_Extent: {x: 0.80515003, y: 0.80415, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2432,6 +2293,18 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &595137979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595137976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1766fc57ce1813047965b6cf6a158617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &597032940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,8 +2809,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0016000271, y: 0.0011000037, z: 0}
-    m_Extent: {x: 1.0066, y: 1.0072999, z: 0}
+    m_Center: {x: 0.003700018, y: 0.00054997206, z: 0}
+    m_Extent: {x: 0.99880004, y: 1.0072501, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3623,7 +3496,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830715486}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3665,7 +3538,7 @@ GameObject:
   - component: {fileID: 882713446}
   - component: {fileID: 882713448}
   - component: {fileID: 882713450}
-  - component: {fileID: 882713451}
+  - component: {fileID: 882713449}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -3733,6 +3606,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &882713449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882713445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a71042c4d60284ba2cf9e9af88635f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doorOpen: {fileID: 399021113}
+  _doorClose: {fileID: 2005177988}
+  _isOpenDoor: 0
 --- !u!114 &882713450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3748,42 +3636,6 @@ MonoBehaviour:
   _isButton: 1
   _isLoop: 1
   _tag: Player
-  _typeCriterion: -1
-  _nameAction: 
-  _item: {fileID: 0}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 882713451}
-        m_TargetAssemblyTypeName: OpenDoor, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &882713451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882713445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0a36bbf01ccdb449b6aec54cbe1197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _doorOpen: {fileID: 399021113}
-  _doorClose: {fileID: 2005177988}
-  _isOpenDoor: 0
 --- !u!1 &882865656
 GameObject:
   m_ObjectHideFlags: 0
@@ -4024,7 +3876,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936710644}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -4125,8 +3977,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0012500286, y: 0.0040500164, z: 0}
-    m_Extent: {x: 1.00825, y: 1.00175, z: 0}
+    m_Center: {x: 0.0042999983, y: -0.0012999773, z: 0}
+    m_Extent: {x: 1.0023, y: 1.0058, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4304,7 +4156,6 @@ GameObject:
   - component: {fileID: 1071579418}
   - component: {fileID: 1071579421}
   - component: {fileID: 1071579422}
-  - component: {fileID: 1071579420}
   m_Layer: 0
   m_Name: Button Kitty
   m_TagString: Untagged
@@ -4373,7 +4224,7 @@ Transform:
   - {fileID: 1171972956}
   m_Father: {fileID: 1197989021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1071579420
+--- !u!114 &1071579421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4386,68 +4237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isButton: 1
-  _isLoop: 0
+  _isLoop: 1
   _tag: Player
-  _typeCriterion: 1
-  _nameAction: 
-  _item: {fileID: 11400000, guid: 4514723d23c70a846aa0a0943f63769d, type: 2}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1071579422}
-        m_TargetAssemblyTypeName: WorkText, Assembly-CSharp
-        m_MethodName: RunOtherText
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: test_2
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1071579421}
-        m_TargetAssemblyTypeName: WorkLight, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1071579422}
-        m_TargetAssemblyTypeName: WorkText, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1071579421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071579416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c69f64fe4e6933b4aa7a1bed79c4db71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _workTypeLight: 1
-  _light: {fileID: 1875943889}
-  _period: 0
 --- !u!114 &1071579422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4457,10 +4248,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1071579416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84c7ed8dd25c6394d9de9b91bf05befc, type: 3}
+  m_Script: {fileID: 11500000, guid: f4a8b78e245ec8d4fb8f84dc609b522e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 36bfba872ac20184c855976512fe82d1, type: 2}
+  _light: {fileID: 1875943889}
 --- !u!1 &1079522614
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,6 +4346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1083111926}
   - component: {fileID: 1083111927}
+  - component: {fileID: 1083111928}
   m_Layer: 0
   m_Name: 'Light '
   m_TagString: Untagged
@@ -4611,8 +4403,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00024998188, y: 0.007100016, z: 0}
-    m_Extent: {x: 0.80025, y: 0.80050004, z: 0}
+    m_Center: {x: 0.0043500066, y: -0.0028000176, z: 0}
+    m_Extent: {x: 0.80435, y: 0.8019, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4627,6 +4419,18 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1083111928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083111925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1766fc57ce1813047965b6cf6a158617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1126740124
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,9 +4704,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 214032441}
+      - m_Target: {fileID: 11500000, guid: f04e0366ab8a9ab449bedf41948c7734, type: 3}
         m_TargetAssemblyTypeName: PanelComponent, Assembly-CSharp
-        m_MethodName: MenuOff
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5163,8 +4967,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1212371108}
   - component: {fileID: 1212371111}
-  - component: {fileID: 1212371110}
-  - component: {fileID: 1212371109}
   m_Layer: 0
   m_Name: GiveItem
   m_TagString: Untagged
@@ -5187,56 +4989,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 827201152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1212371109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212371107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f82872fa7b6014db0e8140c762d359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _item: {fileID: 11400000, guid: 4514723d23c70a846aa0a0943f63769d, type: 2}
-  _isShowText: 1
---- !u!114 &1212371110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212371107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c6638683baa7143ab17aae107bd0c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isButton: 1
-  _isLoop: 0
-  _tag: Player
-  _typeCriterion: -1
-  _nameAction: 
-  _item: {fileID: 0}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1212371109}
-        m_TargetAssemblyTypeName: GiveItem, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!61 &1212371111
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5828,8 +5580,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0009999871, y: -0.0009999871, z: 0}
-    m_Extent: {x: 1.0088, y: 0.9985, z: 0}
+    m_Center: {x: 0.004799992, y: 0.001150012, z: 0}
+    m_Extent: {x: 1.0044, y: 1.00415, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5869,7 +5621,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1506426721}
   - component: {fileID: 1506426722}
-  - component: {fileID: 1506426723}
   m_Layer: 0
   m_Name: ROOMTamb
   m_TagString: Untagged
@@ -5944,21 +5695,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1506426723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506426720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0291c7f705b674f4e88ef2fd9adb8711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointLeftUp: {x: -17.5, y: 4.19}
-  _pointRightDown: {x: -7.42, y: -3.16}
-  _light: {fileID: 1874715534}
 --- !u!1 &1515453623
 GameObject:
   m_ObjectHideFlags: 0
@@ -6220,6 +5956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1523106359}
   - component: {fileID: 1523106358}
+  - component: {fileID: 1523106360}
   m_Layer: 0
   m_Name: 'Global Light '
   m_TagString: Untagged
@@ -6292,6 +6029,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523106360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523106357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1766fc57ce1813047965b6cf6a158617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1531898996
 GameObject:
   m_ObjectHideFlags: 0
@@ -6375,7 +6124,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 214032439}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameCore, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
@@ -6565,7 +6314,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1570877658}
   - component: {fileID: 1570877659}
-  - component: {fileID: 1570877660}
   m_Layer: 0
   m_Name: ROOMPd
   m_TagString: Untagged
@@ -6640,21 +6388,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1570877660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570877657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0291c7f705b674f4e88ef2fd9adb8711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointLeftUp: {x: -33, y: -2.42}
-  _pointRightDown: {x: -17.58, y: 4.89}
-  _light: {fileID: 192873075}
 --- !u!1 &1603274164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6785,7 +6518,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1669277611}
   - component: {fileID: 1669277612}
-  - component: {fileID: 1669277613}
   m_Layer: 0
   m_Name: ROOMKit
   m_TagString: Untagged
@@ -6860,21 +6592,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1669277613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669277610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0291c7f705b674f4e88ef2fd9adb8711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointLeftUp: {x: 8.01, y: -3.19}
-  _pointRightDown: {x: 16.96, y: 4.16}
-  _light: {fileID: 1875943889}
 --- !u!1 &1673961269
 GameObject:
   m_ObjectHideFlags: 0
@@ -6885,8 +6602,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1673961270}
   - component: {fileID: 1673961272}
-  - component: {fileID: 1673961273}
   - component: {fileID: 1673961274}
+  - component: {fileID: 1673961273}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -6902,7 +6619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673961269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6941,7 +6658,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05968952, y: 0.07674372}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6952,7 +6669,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5519314, y: 4.8713007}
+  m_Size: {x: 3, y: 4}
   m_EdgeRadius: 0
 --- !u!114 &1673961273
 MonoBehaviour:
@@ -6963,13 +6680,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1673961269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069fc5bc7a23c594abdba6341762618d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ea0f4e0cdad04747aad9dccc348b016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _typeWork: 1
-  _targetPosition: {x: 0, y: 0}
-  _offset: {x: 0, y: -0.7}
-  _targetObject: {fileID: 529220353}
+  _offset: {x: 0, y: -0.55}
+  _targetTransform: {fileID: 529220354}
 --- !u!114 &1673961274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6985,27 +6700,6 @@ MonoBehaviour:
   _isButton: 1
   _isLoop: 1
   _tag: Player
-  _typeCriterion: -1
-  _nameAction: 
-  _item: {fileID: 0}
-  _onNotWorkTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  _onWorkTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1673961273}
-        m_TargetAssemblyTypeName: Ladder, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1684437185
 GameObject:
   m_ObjectHideFlags: 0
@@ -7344,12 +7038,13 @@ Transform:
   m_GameObject: {fileID: 1758214902}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.25, y: -0.5418911, z: 0}
+  m_LocalPosition: {x: 6.25, y: -0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1126740125}
   - {fileID: 595137977}
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1758214905
@@ -7430,6 +7125,8 @@ MonoBehaviour:
   _animator: {fileID: 1126740127}
   _spriteRenderer: {fileID: 1126740128}
   _countItem: 6
+  _speedBlackout: 3
+  _speedShine: 0.02
 --- !u!1 &1761275275
 GameObject:
   m_ObjectHideFlags: 0
@@ -8271,8 +7968,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 8.058969
+  m_PointLightInnerRadius: 2
+  m_PointLightOuterRadius: 8
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -8364,8 +8061,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0009999871, y: -0.0014500022, z: 0}
-    m_Extent: {x: 1.177, y: 1.1702499, z: 0}
+    m_Center: {x: -0.0020999908, y: 0.0015500188, z: 0}
+    m_Extent: {x: 1.1759, y: 1.17735, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -9054,8 +8751,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0011499524, y: -0.0012999773, z: 0}
-    m_Extent: {x: 1.0085499, y: 1.0072, z: 0}
+    m_Center: {x: 0.0019499958, y: -0.004400015, z: 0}
+    m_Extent: {x: 0.99955, y: 1.0045, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -9501,7 +9198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2133053112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9696,12 +9393,11 @@ SpriteRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 304040391}
   - {fileID: 1523106359}
   - {fileID: 214032440}
-  - {fileID: 519420032}
-  - {fileID: 723956431}
-  - {fileID: 304040391}
   - {fileID: 1758214903}
+  - {fileID: 723956431}
   - {fileID: 1419155731}
   - {fileID: 1603274165}
   - {fileID: 1522650271}

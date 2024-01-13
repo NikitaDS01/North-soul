@@ -17,7 +17,7 @@ public class Move
 
     public void Run(float speed)
     {
-        float direction = Move.GetSpeed();
+        float direction = Move.GetAxis();
         if(direction != 0)
             Flip(direction < 0);
         if (Input.GetKey(Settings.KeySprint))
@@ -34,7 +34,7 @@ public class Move
             _transform.localScale = scale;
         }
     }
-    public static float GetSpeed()
+    public static float GetAxis()
     {
         if (Input.GetKey(KeyCode.D))
         {

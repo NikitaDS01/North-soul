@@ -13,22 +13,17 @@ public class TextView : IService, IContainEvent
     
     private CoritunaService _coritunaService;
     private EventBus _eventBus;
-    
-    public TextView(Image fonText, Text text)
-    {
-        _fonText = fonText;
-        _text = text;
-        this.SetAction(false);
-    }
 
     public void DisableEvent()
     {
         _eventBus.Unsubcribe<AddItemInventorySignal>(PrintAddItem);
+        _eventBus.Unsubcribe<NotPlaceInventorySignal>(PrintNotAddItem);
     }
 
     public void EnableEvent()
     {
         _eventBus.Subscribe<AddItemInventorySignal>(PrintAddItem);
+        _eventBus.Subscribe<NotPlaceInventorySignal>(PrintNotAddItem);
     }
 
     public void Init()
@@ -36,7 +31,6 @@ public class TextView : IService, IContainEvent
         _coritunaService = ServiceLocator.Singleton.Get<CoritunaService>();
 
         _eventBus = ServiceLocator.Singleton.Get<EventBus>();
-        EnableEvent();
     }
 
     public IEnumerator PrintText(string textIn)

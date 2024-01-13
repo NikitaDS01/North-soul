@@ -10,10 +10,14 @@ public class Animation
     {
         _animator = animator;
     }
-
+    public void Stop()
+    {
+        _animator.SetBool("IsRun", false);
+        _animator.SetFloat("Boost", 0f);
+    }
     public void Run()
     {
         _animator.SetBool("IsRun", Input.GetKey(KeyCode.LeftShift));
-        _animator.SetFloat("Boost", Mathf.Abs(Move.GetSpeed()));
+        _animator.SetFloat("Boost", Mathf.Abs(Move.GetAxis()));
     }
 }

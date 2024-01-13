@@ -8,10 +8,6 @@ public class EventBus : IService
     private const int PRIORITY_DEFAULT = -1;
     private readonly Dictionary<System.Type, List<CallbackWithPriority>> _events;
     private readonly bool _isEnablePriority;
-    public void Init()
-    {
-        return;
-    }
     public EventBus(bool isPriority = false)
     {
         _events = new Dictionary<Type, List<CallbackWithPriority>>();

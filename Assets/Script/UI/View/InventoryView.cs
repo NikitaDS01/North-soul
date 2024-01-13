@@ -1,24 +1,21 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
 /// Класс, для вывода инвентаря
 /// </summary>
 
 [System.Serializable]
-public class InventoryView : IService
+public class InventoryView : IService, IContainEvent
 {
     [SerializeField] private GameObject _inventoryViewObject;
     [SerializeField] private Image[] _images;
-
-    public InventoryView(GameObject inventoryObject, Image[] images)
-    {
-        _inventoryViewObject = inventoryObject;
-        _images = images;
-    }
+    private EventBus _eventBus;
 
     public void ViewOn()
     {
-        var inventory = GameController.Player.Inventory;
+        var playerObject = ServiceLocator.Singleton.Get<Player>();
+        var inventory = playerObject.Inventory;
         _inventoryViewObject.SetActive(true);
         for(int index = 0; index < inventory.Count; index++)
         {
@@ -34,4 +31,21 @@ public class InventoryView : IService
             _images[index].sprite = null;
         }
     }
+    public void Init()
+    {
+        _eventBus = ServiceLocator.Singleton.Get<EventBus>();
+    }
+    public void EnableEvent()
+    {
+        _eventBus.Subscribe<EnableMenuSignal>(Enable);
+        _eventBus.Subscribe<DisableMenuSignal>(Disable);
+    }
+
+    public void DisableEvent()
+    {
+        _eventBus.Unsubcribe<EnableMenuSignal>(Enable);
+        _eventBus.Unsubcribe<DisableMenuSignal>(Disable);
+    }
+    public void Enable(EnableMenuSignal signal) => ViewOn();
+    public void Disable(DisableMenuSignal signal) => ViewOff();
 }

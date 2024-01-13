@@ -14,7 +14,6 @@ public class CompletedActions : IService, IContainEvent
     public void Init()
     {
         _eventBus = ServiceLocator.Singleton.Get<EventBus>();
-        EnableEvent();
     }
     public bool Contain(string actionIn)
     {

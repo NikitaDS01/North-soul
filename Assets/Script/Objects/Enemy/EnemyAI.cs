@@ -3,13 +3,15 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     private Transform _player;
-
+    private RegistryLight _lights;
     private bool _isHide = false;
     private Transform _transform;
 
     private void Start()
     {
-        _player = GameController.Player.transform;
+        var playerObject = ServiceLocator.Singleton.Get<Player>();
+        _lights = ServiceLocator.Singleton.Get<RegistryLight>();
+        _player = playerObject.transform;
         _transform = transform;
     }
     private void Update()
@@ -19,7 +21,22 @@ public class EnemyAI : MonoBehaviour
     }
     private void LateUpdate()
     {
-        
+        var data = _lights.Find(_transform.position);
+        if(data != null)
+        {
+            Change(!data.Light.enabled);
+        }
+        else
+        {
+            Hide();
+        }
+    }
+    private void Change(bool isHideIn)
+    {
+        if (isHideIn)
+            Show();
+        else
+            Hide();
     }
     private void Hide()
     {

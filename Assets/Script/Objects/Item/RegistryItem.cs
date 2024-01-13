@@ -10,7 +10,10 @@ public class RegistryItem : IService
     {
         _items = new Dictionary<int, ItemData>();
     }
-
+    public void Init()
+    {
+        this.LoadFromFile();
+    }
     public void LoadFromFile()
     {
         var objects = Resources.LoadAll("Items");
